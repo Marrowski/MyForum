@@ -1,0 +1,26 @@
+{% extends 'main/main.html'%}
+{% load static %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+<div class="forum-container">
+    {% if forum %}
+        {% for data in forum %}
+            <div class="forum-post">
+                <h2 class="post-title">{{ data.title }}</h2>
+                <div class="post-content">{{ data.post }}</div>
+                <div class="post-meta">
+                    <span class="post-date">{{ data.date_of_post }}</span>
+                </div>
+                {% for usr in user %}
+                    <span class="username">Автор: {{ usr.username }}</span> 
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Наразі постів немає.</p>
+    {% endif %}
+</div>
+{% endblock %}

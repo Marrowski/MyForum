@@ -1,0 +1,204 @@
+* {
+    box-sizing: border-box;
+    
+}
+
+body {
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(90deg, #4a90e2, #50e3c2);
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header a {
+    color: #fff; 
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+header a:visited {
+    color: #fff;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+nav ul li a.btn {
+    background-color: #4a90e2;
+    padding: 10px 15px; 
+    border-radius: 5px;
+    transition: background-color 0.3s; 
+}
+
+nav ul li a.btn:hover {
+    background-color: #357ab8;
+}
+
+main {
+    flex: 1;
+    padding: 20px; 
+}
+
+.forum-topics {
+    width: 100%; 
+    padding: 15px; 
+    background: #fff;
+    border-radius: 10px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+}
+
+h2 {
+    border-bottom: 2px solid #4a90e2;
+    padding-bottom: 8px; 
+    margin-bottom: 15px; 
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; 
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+    flex: 1 1 calc(100% - 15px); 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s; 
+}
+
+.card:hover {
+    transform: scale(1.02); 
+}
+
+.card a {
+    color: #4a00e0;
+    text-decoration: none;
+}
+
+.card a:hover {
+    text-decoration: underline;
+}
+
+.card a:visited {
+    color: #4a00e0; 
+}
+
+footer {
+    background-color: #343a40; 
+    color: #fff; 
+    text-align: center; 
+    padding: 15px 0; 
+    width: 100%; 
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2); 
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px; 
+}
+
+footer p {
+    margin: 0; 
+    font-size: 0.9em;
+}
+
+nav {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.nav-links {
+    margin: 0;
+    padding: 0;
+}
+
+.register-button {
+    position: absolute;
+    right: 20px;
+}
+
+.register-button a.btn {
+    background-color: #4a90e2;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-button a.btn:hover {
+    background-color: #357ab8;
+}
+
+.register-button {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.user-info span {
+    white-space: nowrap; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    font-size: 16px;
+    color: #0f77d2; 
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.2); 
+    padding: 6px 12px;
+    border-radius: 20px; 
+}
+
+
+.username-link {
+    color: #0f77d2 !important;
+    text-decoration: none;
+}
+
+.username-link:hover {
+    text-decoration: underline;
+}
+
+.username-link:visited {
+    color: #0f77d2!important;
+}

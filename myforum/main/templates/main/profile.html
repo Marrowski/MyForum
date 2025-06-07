@@ -1,0 +1,33 @@
+{% extends 'main/main.html' %}
+{% load static %}
+{% block title %}Ваш профіль{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %} 
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="avatar">
+            {% if profile.avatar %}
+                <img src="{{ profile.avatar.url }}" alt="Аватар {{ profile.user.username }}">
+            {% else %}
+                <img src="{% static 'images/avatar.png' %}" alt="Стандартний аватар">
+            {% endif %}
+        </div>
+        <div class="profile-details">
+            <h2>{{ profile.user.username }}</h2>
+            {% if profile.user.first_name %}
+                <p><strong>Ім'я:</strong> {{ profile.user.first_name }}</p>
+            {% endif %}
+            <p><strong>Активний:</strong> {{ profile.user.is_active|yesno:"Так,Ні" }}</p>
+            <p><strong>Дата реєстрації:</strong> {{ profile.user.date_joined|date:"d.m.Y" }}</p>
+        </div>
+    </div>
+    <div class="edit-profile">
+        <a href="{% url 'prof_settings' %}" class="btn">Редагувати профіль</a>
+    </div>
+</div>
+
+{% endblock %}

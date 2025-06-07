@@ -1,0 +1,26 @@
+{% extends 'main/main.html'%}
+{% load static %}
+{% block title %}{{post.title}}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/page.css' %}">
+{% endblock %}
+
+{% block content %}
+<main>
+    <section class="post">
+        <h2>{{ post.title }}</h2>
+        <div class="post-meta">
+            <span class="date">{{ post.date_of_post }}</span>
+            {% for usr in user %}
+                <span class="username">Автор: {{ usr.username }}</span>
+            {% endfor %}
+        </div>
+        {% if post %}
+            <div class="post-content">
+                <p>{{ post.post }}</p>
+            </div>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}

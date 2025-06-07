@@ -1,0 +1,22 @@
+{% extends 'main/main.html' %}
+{% load static %}
+{% block extra_css %} 
+
+{% endblock %}
+
+{% block content %}
+<div class="card-container">
+    {% for data in forum %}
+        {% if data %}   
+        <div class="card">
+            <h3><a href="{% url 'post' data.id %}">{{data.title}}</a></h3>
+            <p>{{ data.forum_choise }}</p>
+            <span class="date">{{ data.date_of_post }}</span>
+            {% for usr in user %}
+                <span class="username">Автор: {{ usr.username }}</span> 
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

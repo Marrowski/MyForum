@@ -18,9 +18,22 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from main.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('main/', main_view, name='main'),
+    path('', main_view, name='home'),
+    path('post/<int:post_id>/', post_page, name='post'),
+    path('games/', games_view, name='games'),
+    path('computers/', computers_view, name='computers'),
+    path('programming/', programming_view, name='programming'),
+    path('news/', news_view, name='news'),
+    path('register/', register, name='register'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('profile/', user_profile, name='profile'),
+    path('profile_settings/', profile_settings, name='prof_settings')
 ]
 
 if settings.DEBUG:
