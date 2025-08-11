@@ -23,10 +23,13 @@ class Comment(models.Model):
     page = models.ForeignKey(ForumPage, on_delete=models.CASCADE, related_name='comm_pg')
     comment = models.CharField(max_length=255, blank=False)
     
+    def __str__(self):
+        return self.comment
+    
     
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     avatar = models.ImageField(upload_to='media/user_avatars/')
     
-    def __str__(self):
-        return self.user
+
+    

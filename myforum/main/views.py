@@ -8,7 +8,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from .models import UserProfile
-from .forms import ChangeProfileForm
+from .forms import ChangeProfileForm, CommentForm
+from django.contrib.auth.decorators import permission_required
+
 
 def main_view(request):
     forum = ForumPage.objects.all()
@@ -24,14 +26,63 @@ def main_view(request):
     return render(request, 'main/main.html', context)
 
 
+def add_comment(request, page_id):
+    page = get_object_or_404(ForumPage, id=page_id)
+
+    if request.method == 'POST':
+        comment_text = request.POST.get('comment')
+        if comment_text:
+            Comment.objects.create(user=request.user, comment=comment_text, page=page)
+    
+    return redirect('post', post_id=page.id)
+
+
+def delete_comment(request, page_id):
+    permission_required = ''
+    page = get_object_or_404(ForumPage, id=page_id)
+    
+    if request.method == 'POST':
+        comment_id = request.POST.get('comment_id')
+        if comment_id:
+            Comment.objects.filter(user=request.user, id=comment_id, page=page).delete()
+    
+    return redirect('post', post_id=page.id)
+
+
+def edit_comment(request, page_id):
+    page = get_object_or_404(ForumPage, id=page_id)
+    
+    if request.method == 'POST':
+        comment_id = request.POST.get('comment_id')
+        new_comment = request.POST.get('comment')
+        
+        comment = get_object_or_404(Comment, id=comment_id, page=page)
+        
+        if comment_id:
+            comment.comment = new_comment
+            comment.save()
+            
+    return redirect('post', post_id=page.id)
+        
+
 def post_page(request, post_id):
+    comment = Comment.objects.filter(page_id=post_id)
     post = get_object_or_404(ForumPage, id=post_id)
     user = request.user
     user_data = User.objects.filter(username=user)
     
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        form.save()
+    else:
+        form = CommentForm()
+    
+    
     context = {
         'post': post,
-        'user': user_data
+        'user': user_data,
+        'form': form,
+        'comment_a': comment
     }
     
     return render(request, 'main/post_page.html', context)

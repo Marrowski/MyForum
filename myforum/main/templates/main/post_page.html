@@ -1,6 +1,6 @@
-{% extends 'main/main.html'%}
+{% extends 'main/main.html' %}
 {% load static %}
-{% block title %}{{post.title}}{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/page.css' %}">
@@ -22,5 +22,61 @@
             </div>
         {% endif %}
     </section>
+
+    <section class="comments">
+        <h3>Коментарі</h3>
+    
+        {% if comment_a %}
+            {% for comm in comment_a %}
+                <div class="comment">
+                    <div class="comment-username">{{ comm.user.username }}</div>
+                    <div class="comment-text">{{ comm.comment }}</div>
+                    <div class="comment-date">{{ comm.created_at|date:"d.m.Y H:i" }}</div>
+
+                    {% if request.user == comm.user or request.user.is_staff %}
+                        <div class="comment-actions">
+                            <button class="btn-edit" onclick="toggleEditForm('{{ comm.id }}')">Редагувати</button>
+                            <form method="POST" action="{% url 'delete_comment' comm.page.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="comment_id" value="{{ comm.id }}">
+                                <button type="submit" class="btn-delete" onclick="return confirm('Видалити коментар?');">Видалити</button>
+                            </form>
+                        </div>
+                        <form method="POST" action="{% url 'edit_comment' comm.page.id %}" id="edit-form-{{ comm.id }}" style="display:none; margin-top: 10px;">
+                            {% csrf_token %}
+                            <input type="hidden" name="comment_id" value="{{ comm.id }}">
+                            <textarea name="comment" class="comment-textarea">{{ comm.comment }}</textarea>
+                            <button type="submit" class="btn-edit">Зберегти зміни</button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Наразі коментарів немає.</p>
+        {% endif %}
+
+        {% if request.user.is_authenticated %}
+            <form method="POST" action="{% url 'add_comment' post.id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.comment }}
+                </div>
+                <button type="submit">Опублікувати коментар</button>
+            </form>
+        {% else %}
+            <p>Увійдіть або зареєструйтесь, щоб залишити коментар</p>
+        {% endif %}
+    </section>
 </main>
+
+<script>
+    function toggleEditForm(commentId) {
+        const form = document.getElementById('edit-form-' + commentId);
+        if (form.style.display === 'none' || form.style.display === '') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
+</script>
 {% endblock %}

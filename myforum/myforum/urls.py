@@ -33,7 +33,10 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
     path('profile/', user_profile, name='profile'),
-    path('profile_settings/', profile_settings, name='prof_settings')
+    path('profile_settings/', profile_settings, name='prof_settings'),
+    path('add_comment/<int:page_id>/comment/', add_comment, name='add_comment'),
+    path('delete_comment/<int:page_id>/comment/', delete_comment, name='delete_comment'),
+    path('edit_comment/<int:page_id>/comment/', edit_comment, name='edit_comment')
 ]
 
 if settings.DEBUG:
